@@ -13,8 +13,8 @@ class FreezeFluteItem
         private static string ItemLoreToken = "CULTIST_FREEZEFLUTE_LORE";
         private static float FrostNovaDamageCoefficient = 1.0f;
         private static float FrostNovaForce = 0f;
-        private static float FrostNovaBaseRadius = 8f;
-        private static float FrostNovaStackRadius = 2f;
+        private static float FrostNovaBaseRadius = 12f;
+        private static float FrostNovaStackRadius = 2.4f;
 
         //The Awake() method is run at the very start when the game is initialized.
         public void Init()
@@ -85,8 +85,9 @@ class FreezeFluteItem
                         teamIndex = TeamComponent.GetObjectTeam(report.attacker),
                         baseDamage = report.attackerBody.damage * FrostNovaDamageCoefficient,
                         baseForce = FrostNovaForce,
-                        damageType = DamageType.Freeze2s & DamageType.AOE,
+                        damageType = DamageType.Freeze2s,
                         position = report.victimBody.transform.position,
+                        procChainMask = report.damageInfo.procChainMask,
                         radius = FrostNovaBaseRadius + FrostNovaStackRadius * (garbCount - 1),
                         procCoefficient = 1f,
                         attackerFiltering = AttackerFiltering.NeverHit

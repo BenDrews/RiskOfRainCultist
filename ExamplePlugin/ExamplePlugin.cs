@@ -31,6 +31,7 @@ namespace ExamplePlugin
         public const string PluginVersion = "1.0.0";
 
         private VampireItem vampireItem;
+        private FreezeFluteItem freezeFluteItem;
 
 		//The Awake() method is run at the very start when the game is initialized.
         public void Awake()
@@ -40,6 +41,8 @@ namespace ExamplePlugin
 
             vampireItem = new VampireItem();
             vampireItem.Init();
+            freezeFluteItem = new FreezeFluteItem();
+            freezeFluteItem.Init();
 
             // This line of log will appear in the bepinex console when the Awake method is done.
             Log.LogInfo(nameof(Awake) + " done.");
@@ -49,6 +52,7 @@ namespace ExamplePlugin
         private void Update()
         {
             vampireItem.Update();
+            freezeFluteItem.Update();
         }
     }
 }
