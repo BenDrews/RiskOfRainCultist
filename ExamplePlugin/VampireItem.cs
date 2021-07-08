@@ -10,7 +10,7 @@ namespace ExamplePlugin {
 
         private ItemDef itemDef;
 
-        public void init() {
+        public void Init() {
 
             //First let's define our item
             itemDef = ScriptableObject.CreateInstance<ItemDef>();
