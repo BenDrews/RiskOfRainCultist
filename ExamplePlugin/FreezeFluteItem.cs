@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ExamplePlugin
 {
-class FreezeFlute
+class FreezeFluteItem
 	{
         internal static ItemDef FreezeFluteItemDef;
         private static string ItemNameToken = "CULTIST_FREEZEFLUTE_NAME";
@@ -92,6 +92,20 @@ class FreezeFlute
                         attackerFiltering = AttackerFiltering.NeverHit
                     }.Fire();
                 }
+            }
+        }
+        public void Update()
+        {
+            //This if statement checks if the player has currently pressed F3.
+            if (Input.GetKeyDown(KeyCode.F4))
+            {
+                //Get the player body to use a position:	
+                var transform = PlayerCharacterMasterController.instances[0].master.GetBodyObject().transform;
+
+                //And then drop our defined item in front of the player.
+
+                Log.LogInfo($"Player pressed F3. Spawning our custom item at coordinates {transform.position}");
+                PickupDropletController.CreatePickupDroplet(PickupCatalog.FindPickupIndex(FreezeFluteItemDef.itemIndex), transform.position, transform.forward * 20f);
             }
         }
     }
