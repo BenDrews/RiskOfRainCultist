@@ -11,6 +11,7 @@ namespace CultistPlugin.Modules
              + "< ! > Bomb can be used to wipe crowds with ease." + Environment.NewLine + Environment.NewLine;
 
         internal const float swordDamageCoefficient = 2.8f;
+        internal const float scytheDamageCoefficient = 2.8f;
 
         internal const float gunDamageCoefficient = 4.2f;
 
