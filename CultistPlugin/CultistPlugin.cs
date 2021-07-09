@@ -59,9 +59,9 @@ namespace CultistPlugin
             // This line of log will appear in the bepinex console when the Awake method is done.
             Log.LogInfo(nameof(Awake) + " done.");
         }
-
-        private void LateSetup() {
-            
+        public void LateSetup(HG.ReadOnlyArray<RoR2.ContentManagement.ReadOnlyContentPack> obj)
+        {
+            cultistCharacter.LateSetup(obj);
         }
 
         //The Update() method is run on every frame of the game.

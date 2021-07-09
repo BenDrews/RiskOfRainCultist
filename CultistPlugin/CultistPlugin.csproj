@@ -14,11 +14,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="CultistBank.bnk" />
-    <None Remove="myassetbundle" />
+    <None Remove="cultistassetbundle" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CultistBank.bnk" />
-    <EmbeddedResource Include="myassetbundle" />
+    <EmbeddedResource Include="cultistassetbundle" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony">

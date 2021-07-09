@@ -35,7 +35,7 @@ namespace CultistPlugin
             Hook();
         }
 
-        private void LateSetup(HG.ReadOnlyArray<RoR2.ContentManagement.ReadOnlyContentPack> obj)
+        public void LateSetup(HG.ReadOnlyArray<RoR2.ContentManagement.ReadOnlyContentPack> obj)
         {
             // have to set item displays later now because they require direct object references..
             Modules.Survivors.MyCharacter.instance.SetItemDisplays();
