@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CultistPlugin.Modules.Survivors
 {
-    internal class MyCharacter : SurvivorBase
+    internal class Cultist : SurvivorBase
     {
         internal override string bodyName { get; set; } = "Henry";
 
