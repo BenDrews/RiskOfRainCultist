@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Metadata", "Metadata", "{3A
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamplePlugin", "ExamplePlugin\ExamplePlugin.csproj", "{2F8A40CC-6D15-486D-B689-0A7A472DB89E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CultistPlugin", "CultistPlugin\CultistPlugin.csproj", "{2F8A40CC-6D15-486D-B689-0A7A472DB89E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
