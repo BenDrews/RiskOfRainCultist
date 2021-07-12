@@ -54,6 +54,8 @@ namespace CultistPlugin.Modules
             #region Special
             LanguageAPI.Add(prefix + "SPECIAL_BOMB_NAME", "Bomb");
             LanguageAPI.Add(prefix + "SPECIAL_BOMB_DESCRIPTION", $"Throw a bomb for <style=cIsDamage>{100f * StaticValues.bombDamageCoefficient}% damage</style>.");
+            LanguageAPI.Add(prefix + "SPECIAL_SCYTHE_NAME", "Scythe");
+            LanguageAPI.Add(prefix + "SPECIAL_SCYTHE_DESCRIPTION", $"Executes for <style=cIsDamage>{100f * StaticValues.scytheDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Achievements

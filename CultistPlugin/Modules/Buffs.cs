@@ -8,12 +8,14 @@ namespace CultistPlugin.Modules
     {
         // armor buff gained during roll
         internal static BuffDef armorBuff;
+        internal static BuffDef cultistBuff;
 
         internal static List<BuffDef> buffDefs = new List<BuffDef>();
 
         internal static void RegisterBuffs()
         {
             armorBuff = AddNewBuff("HenryArmorBuff", Resources.Load<Sprite>("Textures/BuffIcons/texBuffGenericShield"), Color.white, false, false);
+            cultistBuff = AddNewBuff("BenDrewsCultistBuff", Resources.Load<Sprite>("Textures/BuffIcons/texBuffGenericShield"), Color.white, false, false);
         }
 
         // simple helper method

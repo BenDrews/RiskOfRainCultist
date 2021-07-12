@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CultistPlugin.Modules.Survivors
 {
-    internal class MyCharacter : SurvivorBase
+    internal class Cultist : SurvivorBase
     {
         internal override string bodyName { get; set; } = "Henry";
 
@@ -181,7 +181,31 @@ namespace CultistPlugin.Modules.Survivors
                 stockToConsume = 1
             });
 
-            Modules.Skills.AddSpecialSkills(bodyPrefab, bombSkillDef);
+            SkillDef scytheSkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo
+            {
+                skillName = prefix + "_HENRY_BODY_SPECIAL_SCYTHE_NAME",
+                skillNameToken = prefix + "_HENRY_BODY_SPECIAL_SCYTHE_NAME",
+                skillDescriptionToken = prefix + "_HENRY_BODY_SPECIAL_SCYTHE_DESCRIPTION",
+                skillIcon = Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
+                activationState = new EntityStates.SerializableEntityStateType(typeof(SkillStates.Scythe)),
+                activationStateMachineName = "Weapon",
+                baseMaxStock = 1,
+                baseRechargeInterval = 3f,
+                beginSkillCooldownOnSkillEnd = false,
+                canceledFromSprinting = false,
+                forceSprintDuringState = false,
+                fullRestockOnAssign = false,
+                interruptPriority = EntityStates.InterruptPriority.Skill,
+                resetCooldownTimerOnUse = false,
+                isCombatSkill = true,
+                mustKeyPress = true,
+                cancelSprintingOnActivation = true,
+                rechargeStock = 1,
+                requiredStock = 1,
+                stockToConsume = 1,
+            });
+
+            Modules.Skills.AddSpecialSkills(bodyPrefab, bombSkillDef, scytheSkillDef);
             #endregion
         }
 
