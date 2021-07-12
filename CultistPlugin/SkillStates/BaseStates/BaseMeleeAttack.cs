@@ -163,6 +163,7 @@ namespace CultistPlugin.SkillStates.BaseStates
         {
             base.FixedUpdate();
 
+
             this.hitPauseTimer -= Time.fixedDeltaTime;
 
             if (this.hitPauseTimer <= 0f && this.inHitPause)
@@ -187,14 +188,18 @@ namespace CultistPlugin.SkillStates.BaseStates
                 this.FireAttack();
             }
 
-            if (this.stopwatch >= (this.duration - this.earlyExitTime) && base.isAuthority)
+            if (this.IsPrimary())
             {
-                if (base.inputBank.skill1.down)
+                if (this.stopwatch >= (this.duration - this.earlyExitTime) && base.isAuthority)
                 {
-                    if (!this.hasFired) this.FireAttack();
-                    this.SetNextState();
-                    return;
+                    if (base.inputBank.skill1.down)
+                    {
+                        if (!this.hasFired) this.FireAttack();
+                        this.SetNextState();
+                        return;
+                    }
                 }
+
             }
 
             if (this.stopwatch >= this.duration && base.isAuthority)
@@ -219,6 +224,11 @@ namespace CultistPlugin.SkillStates.BaseStates
         {
             base.OnDeserialize(reader);
             this.swingIndex = reader.ReadInt32();
+        }
+
+        protected virtual bool IsPrimary()
+        {
+            return true;
         }
     }
 }

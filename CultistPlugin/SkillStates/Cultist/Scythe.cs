@@ -71,5 +71,9 @@ namespace CultistPlugin.SkillStates
         {
             base.OnExit();
         }
+
+        protected override bool IsPrimary() {
+            return false;
+        }
     }
 }
