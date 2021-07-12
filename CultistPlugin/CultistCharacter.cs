@@ -2,9 +2,11 @@
 using CultistPlugin.Modules.Survivors;
 using R2API.Utils;
 using RoR2;
+using RoR2.UI;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
+using UnityEngine;
 
 namespace CultistPlugin
 {
@@ -46,6 +48,7 @@ namespace CultistPlugin
             // run hooks here, disabling one is as simple as commenting out the line
             On.RoR2.CharacterBody.RecalculateStats += CharacterBody_RecalculateStats;
             On.RoR2.HealthComponent.TakeDamage += HealthComponent_TakeDamage;
+            On.RoR2.UI.HealthBar.UpdateBarInfos += HealthBar_UpdateBarInfos;
         }
 
         float scytheExecutionThreshold = 0.5f;
@@ -54,7 +57,7 @@ namespace CultistPlugin
         {
             if (self.combinedHealthFraction < scytheExecutionThreshold)
             {
-                float executionHealthLost = UnityEngine.Mathf.Max(self.combinedHealth, 0);
+                float executionHealthLost = Mathf.Max(self.combinedHealth, 0);
                 if (self.health > 0f)
                 {
                     self.Networkhealth = 0f;
@@ -108,7 +111,8 @@ namespace CultistPlugin
                             // Try to execute if below threshold
                             Execute(self, damageInfo);
                             // On kill get a buff
-                            if (!self.alive) {
+                            if (!self.alive)
+                            {
                                 characterBody.AddTimedBuff(RoR2Content.Buffs.WarCryBuff, 2.0f);
                             }
                         }
@@ -120,6 +124,41 @@ namespace CultistPlugin
             {
                 orig(self, damageInfo);
             }
+        }
+
+        private void HealthBar_UpdateBarInfos(On.RoR2.UI.HealthBar.orig_UpdateBarInfos orig, HealthBar self)
+        {
+            orig(self);
+            if (!self.source)
+            {
+                return;
+            }
+            HealthComponent.HealthBarValues healthBarValues = self.source.GetHealthBarValues();
+            float num7 = healthBarValues.cullFraction;
+            if (healthBarValues.isElite && self.viewerBody)
+			{
+				num7 = Mathf.Max(num7, self.viewerBody.executeEliteHealthFraction);
+			}
+            if (self.viewerBody && self.viewerBody.HasBuff(Modules.Buffs.cultistBuff) &&
+                (TeamComponent.GetObjectTeam(self.viewerBody.gameObject) !=
+                (TeamComponent.GetObjectTeam(self.source.gameObject))))
+            {
+                num7 = Mathf.Max(num7, Mathf.Clamp01(scytheExecutionThreshold));
+            }
+            self.barInfoCollection.cullBarInfo.enabled = (num7 > 0f);
+            self.barInfoCollection.cullBarInfo.normalizedXMin = 0f;
+            self.barInfoCollection.cullBarInfo.normalizedXMax = num7;
+            g__ApplyStyle(ref self.barInfoCollection.cullBarInfo, ref self.style.cullBarStyle);
+            // hbv.cullFraction = Mathf.Max(Mathf.Clamp01(scytheExecutionThreshold), hbv.cullFraction);
+        }
+
+        internal static void g__ApplyStyle(ref HealthBar.BarInfo barInfo, ref HealthBarStyle.BarStyle barStyle)
+        {
+            barInfo.enabled &= barStyle.enabled;
+            barInfo.color = barStyle.baseColor;
+            barInfo.sprite = barStyle.sprite;
+            barInfo.imageType = barStyle.imageType;
+            barInfo.sizeDelta = barStyle.sizeDelta;
         }
 
         private void CharacterBody_RecalculateStats(On.RoR2.CharacterBody.orig_RecalculateStats orig, CharacterBody self)
