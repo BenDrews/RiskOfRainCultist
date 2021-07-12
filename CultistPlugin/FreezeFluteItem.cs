@@ -14,7 +14,7 @@ namespace CultistPlugin
         private static float FrostNovaDamageCoefficient = 1.0f;
         private static float FrostNovaForce = 0f;
         private static float FrostNovaBaseRadius = 12f;
-        private static float FrostNovaStackRadius = 2.4f;
+        private static float FrostNovaStackRadius = 4f;
 
         //The Awake() method is run at the very start when the game is initialized.
         public void Init()
@@ -68,16 +68,14 @@ namespace CultistPlugin
             {
                 //store the amount of our item we have
                 int garbCount = attacker.inventory.GetItemCount(FreezeFluteItemDef.itemIndex);
+                float frostNovaRadius = FrostNovaBaseRadius + FrostNovaStackRadius * (garbCount - 1);
                 if (garbCount > 0)
                 {
-                    /*
-                     * Add the effect back in later
-                    EffectManager.SpawnEffect(Resources.Load<.novaEffectPrefab, new EffectData
+                    EffectManager.SpawnEffect(Resources.Load<GameObject>("Prefabs/Effects/NullifierExplosion"), new EffectData
                     {
-                        origin = base.transform.position,
-                        scale = JellyNova.novaRadius
-                    }, true);)
-                    */
+                        origin = report.victimBody.transform.position,
+                        scale = frostNovaRadius
+                    }, true);
                     new BlastAttack
                     {
                         attacker = report.attacker,
@@ -90,7 +88,8 @@ namespace CultistPlugin
                         procChainMask = report.damageInfo.procChainMask,
                         radius = FrostNovaBaseRadius + FrostNovaStackRadius * (garbCount - 1),
                         procCoefficient = 1f,
-                        attackerFiltering = AttackerFiltering.NeverHit
+                        attackerFiltering = AttackerFiltering.NeverHit,
+                        impactEffect = EffectCatalog.FindEffectIndexFromPrefab(Resources.Load<GameObject>("Prefabs/Effects/ImpactEffects/CryoCanisterExplosionPrimary.prefab"))
                     }.Fire();
                 }
             }
